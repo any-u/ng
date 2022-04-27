@@ -11,6 +11,10 @@
   "bugs": {
     "url": "https://github.com/any-u/ng/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/any-u/ng.git"
+  },
   "files": [
     "dist",
     "bin"
