@@ -1,4 +1,4 @@
-# @anyu/ng
+# ng
 
 Use the command line to manage templates
 
