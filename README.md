@@ -2,6 +2,11 @@
 
 Use the command line to manage templates
 
+```shell
+npm i -g @any-u/ng
+
+```
+
 ## na
 
 ```
