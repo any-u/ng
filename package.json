@@ -11,6 +11,10 @@
   "bugs": {
     "url": "https://github.com/any-u/ng/issues"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "license": "MIT",
   "bin": {
     "na": "bin/na.js",
