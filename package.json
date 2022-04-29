@@ -1,6 +1,6 @@
 {
   "name": "@any-u/ng",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Use the command line to manage templates",
   "keywords": [
     "generator",

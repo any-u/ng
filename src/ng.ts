@@ -4,7 +4,7 @@ import minimist from "minimist"
 import * as path from "path"
 import { performance } from "perf_hooks"
 import configProvider from "./config"
-import { getFiles } from "./shared"
+import { cullPath, getFiles } from "./shared"
 import { writeTemplate } from "./template"
 
 const args = minimist(process.argv.slice(2))
@@ -99,7 +99,7 @@ async function run() {
 
     const response = await Promise.allSettled(
       files.map((item) => {
-        const basename = path.basename(item)
+        const basename = cullPath(item, config.path)
         return writeTemplate(item, `${realPath}/${basename}`, userConfig)
       })
     )

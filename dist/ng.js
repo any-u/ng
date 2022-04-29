@@ -31,11 +31,22 @@ var import_path = __toESM(require("path"));
 function isFile(path5) {
   return import_fs_extra.default.existsSync(path5) && import_fs_extra.default.statSync(path5).isFile();
 }
-function getFiles(src) {
+function getFiles(src, fileList = []) {
   if (isFile(src))
     return [];
   const files = import_fs_extra.default.readdirSync(src);
-  return files.map((file) => import_path.default.join(src, file));
+  files.forEach((file) => {
+    const filePath = import_path.default.join(src, file);
+    if (isFile(filePath)) {
+      fileList.push(filePath);
+    } else {
+      getFiles(filePath, fileList);
+    }
+  });
+  return fileList;
+}
+function cullPath(target, root) {
+  return target.replace(root, "");
 }
 
 // src/shared/util.ts
@@ -148,8 +159,8 @@ async function run() {
   } else {
     const files = getFiles(config.path);
     const response = await Promise.allSettled(files.map((item) => {
-      const basename2 = path4.basename(item);
-      return writeTemplate(item, `${realPath}/${basename2}`, userConfig);
+      const basename = cullPath(item, config.path);
+      return writeTemplate(item, `${realPath}/${basename}`, userConfig);
     }));
     for (let res of response) {
       if (res.status === "rejected") {
