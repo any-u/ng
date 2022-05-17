@@ -1,6 +1,6 @@
 {
   "name": "@any-u/ng",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Use the command line to manage templates",
   "keywords": [
     "generator",
@@ -23,13 +23,15 @@
   "bin": {
     "na": "bin/na.js",
     "ng": "bin/ng.js",
-    "nc": "bin/nc.js"
+    "nc": "bin/nc.js",
+    "nl": "bin/nl.js"
   },
   "scripts": {
-    "build": "rimraf dist && tsup src/na.ts src/ng.ts src/nc.ts --format cjs"
+    "build": "rimraf dist && tsup src/na.ts src/ng.ts src/nc.ts src/nl.ts --format cjs"
   },
   "dependencies": {
     "chalk": "4.1.2",
+    "cli-table3": "^0.6.2",
     "fs-extra": "^10.0.1",
     "handlebars": "^4.7.7",
     "minimist": "^1.2.6"
