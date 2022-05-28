@@ -23,6 +23,6 @@ export function getFiles(src: string, fileList: string[] = []): string[] {
 /**
  * 剔除路径中的根路径
  */
-export function cullPath(target: string, root: string): string {
+export function cull(target: string, root: string): string {
   return target.replace(root, "")
 }

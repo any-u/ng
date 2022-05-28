@@ -1,9 +1,8 @@
-export function once(fn: Function): Function {
-  let called = false
-  return (...args: any[]) => {
-    if (!called) {
-      called = true
-      fn(args)
-    }
-  }
+export interface AnyObject {
+  [key: string]: any
+}
+
+
+export function isEmptyObject(object: AnyObject) {
+  return Object.keys(object).length === 0
 }

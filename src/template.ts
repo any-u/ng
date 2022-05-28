@@ -1,20 +1,13 @@
 import fs from "fs-extra"
-import path from "path"
 import Handlebars from "handlebars"
 
-const templatesDir = path.resolve(__dirname, "../templates")
-const resolve = (p: string) => path.resolve(templatesDir, p)
-
-
-
-export async function createTemplate(src: string, dest: string) {
-  return await fs.copy(src, dest)
+async function generate<T>(src: string, config: T) {
+  const raw = fs.readFileSync(src, "utf-8")
+  return Handlebars.compile(raw)(config)
 }
 
-async function generate<T>(src: string, config: T) {
-  const rawContent = fs.readFileSync(src, "utf-8")
-  const template = Handlebars.compile(rawContent)
-  return template(config)
+export function combile<T>(raw: string, config: T) {
+  return Handlebars.compile(raw)(config)
 }
 
 export async function writeTemplate<T>(src: string, dest: string, config: T) {
