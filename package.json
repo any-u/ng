@@ -21,7 +21,7 @@
   ],
   "license": "MIT",
   "bin": {
-    "ng": "bin/index.mjs"
+    "ng": "bin/index.js"
   },
   "scripts": {
     "build": "rimraf dist && tsup src/cli.ts --format esm"
