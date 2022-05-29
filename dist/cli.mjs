@@ -5691,7 +5691,7 @@ var require_package = __commonJS({
   "package.json"(exports, module) {
     module.exports = {
       name: "@any-u/ng",
-      version: "0.2.0",
+      version: "0.2.1",
       description: "Use the command line to manage boilerplates",
       keywords: [
         "generator",
@@ -5712,7 +5712,7 @@ var require_package = __commonJS({
       ],
       license: "MIT",
       bin: {
-        ng: "bin/index.mjs"
+        ng: "bin/index.js"
       },
       scripts: {
         build: "rimraf dist && tsup src/cli.ts --format esm"
