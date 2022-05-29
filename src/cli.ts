@@ -50,9 +50,9 @@ cli
     if (options.l || options.list) {
       displayCommand(userConfig)
     } else if (options.d || options.delete) {
-      deleteCommand(userConfig, args)
+      deleteCommand(userConfig, args, !!global)
     } else if (options.i || options.interactive) {
-      await inquirerCommand(userConfig)
+      await inquirerCommand(userConfig, !!global)
     } else {
       setCommand(userConfig, args, !!global)
     }

@@ -66,32 +66,34 @@ export default function displayCommand(configuration: Configuration) {
 
 export function deleteCommand(
   configuration: Configuration,
-  args: string[]
+  args: string[],
+  global = false
 ): void {
   let res = { ...configuration }
   for (let key of args) {
     if (key in res) {
       delete res[key]
-      config.write(res, !!global)
     } else {
       console.log(
         picocolors.yellow(
           `[Ng] Failed to delete ${key}, alias ${key} is not defined in the configuration.`
         )
       )
+      return
     }
   }
+  config.write(res, global)
 }
 
-export async function inquirerCommand(configuration: Configuration) {
+export async function inquirerCommand(configuration: Configuration, global = false) {
   const res = await useInquirer(configuration)
-  config.write(res, !!global)
+  config.write(res, global)
 }
 
 export function setCommand(
   configuration: Configuration,
   options: string[],
-  global = true
+  global = false
 ) {
   if (!options.length) return
   const res = config.generate(options)

@@ -6354,8 +6354,8 @@ var import_yaml = __toESM(require_yaml());
 import fs from "fs-extra";
 import _ from "lodash";
 import { resolve } from "path";
-var write = (config, global2 = true) => {
-  const path3 = global2 ? resolve(__dirname, "../.ng.yaml") : resolve(process.cwd(), ".ng.yaml");
+var write = (config, global = true) => {
+  const path3 = global ? resolve(__dirname, "../.ng.yaml") : resolve(process.cwd(), ".ng.yaml");
   return fs.writeFileSync(path3, (0, import_yaml.stringify)(config));
 };
 function get(path3) {
@@ -6363,20 +6363,20 @@ function get(path3) {
   const config = content.toString();
   return config ? (0, import_yaml.parse)(config) : {};
 }
-async function ensureCofig(global2 = false) {
-  const path3 = global2 ? resolve(__dirname, "../.ng.yaml") : resolve(process.cwd(), ".ng.yaml");
+async function ensureCofig(global = false) {
+  const path3 = global ? resolve(__dirname, "../.ng.yaml") : resolve(process.cwd(), ".ng.yaml");
   if (!fs.existsSync(path3)) {
     await fs.ensureFileSync(path3);
     return {};
   }
   return get(path3);
 }
-async function getConfig(global2, ensure = false) {
+async function getConfig(global, ensure = false) {
   if (ensure) {
-    return await ensureCofig(global2);
+    return await ensureCofig(global);
   }
   const path3 = resolve(process.cwd(), ".ng.yaml");
-  return global2 || !fs.existsSync(path3) ? await ensureCofig(true) : get(path3);
+  return global || !fs.existsSync(path3) ? await ensureCofig(true) : get(path3);
 }
 function generate(options) {
   let res = {};
@@ -6780,27 +6780,28 @@ function displayCommand(configuration) {
   }
   p.printTable();
 }
-function deleteCommand(configuration, args) {
+function deleteCommand(configuration, args, global = false) {
   let res = __spreadValues({}, configuration);
   for (let key of args) {
     if (key in res) {
       delete res[key];
-      config_default.write(res, !!global);
     } else {
       console.log(picocolors4.yellow(`[Ng] Failed to delete ${key}, alias ${key} is not defined in the configuration.`));
+      return;
     }
   }
+  config_default.write(res, global);
 }
-async function inquirerCommand(configuration) {
+async function inquirerCommand(configuration, global = false) {
   const res = await useInquirer(configuration);
-  config_default.write(res, !!global);
+  config_default.write(res, global);
 }
-function setCommand(configuration, options, global2 = true) {
+function setCommand(configuration, options, global = false) {
   if (!options.length)
     return;
   const res = config_default.generate(options);
   const newConfig = _2.merge(configuration, res);
-  config_default.write(newConfig, global2);
+  config_default.write(newConfig, global);
 }
 async function downloadCommand(name, alias, configuration, options) {
   const args = excludeOptions(options, ["g", "global", "_"]);
@@ -6810,8 +6811,8 @@ async function downloadCommand(name, alias, configuration, options) {
 // src/cli.ts
 var cli = cac("ng");
 cli.command("<alias> [name]", "generate files based on boilerplate").alias("generate").alias("g").allowUnknownOptions().action(async (alias, name, options) => {
-  const global2 = options.g || options.global;
-  const userConfig = await config_default.get(global2);
+  const global = options.g || options.global;
+  const userConfig = await config_default.get(global);
   if (isEmptyObject(userConfig) || !userConfig[alias]) {
     console.log(picocolors5.red(`[Ng] Failed to found data for ${picocolors5.yellow(alias)}, all boilerplate aliases must be defined.`));
     return;
@@ -6821,16 +6822,16 @@ cli.command("<alias> [name]", "generate files based on boilerplate").alias("gene
 `);
 });
 cli.command("config [...args]", "config for boilerplate").option("-g, --global", "[boolean] use global config file").option("-l, --list", "[boolean] list all").option("-d, --delete", "[boolean] delete boilerplate").option("-i, --interactive", "[boolean] Enable interactive input prompts.").action(async (args, options) => {
-  const global2 = options.g || options.global;
-  const userConfig = await config_default.get(global2, true);
+  const global = options.g || options.global;
+  const userConfig = await config_default.get(global, true);
   if (options.l || options.list) {
     displayCommand(userConfig);
   } else if (options.d || options.delete) {
-    deleteCommand(userConfig, args);
+    deleteCommand(userConfig, args, !!global);
   } else if (options.i || options.interactive) {
-    await inquirerCommand(userConfig);
+    await inquirerCommand(userConfig, !!global);
   } else {
-    setCommand(userConfig, args, !!global2);
+    setCommand(userConfig, args, !!global);
   }
   console.log(`\u2728  Done in ${(performance.now() / 1e3).toFixed(2)}s.
 `);
