@@ -1,4 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-import "../dist/index.mjs"
+async function main() {
+  await import("../dist/index.mjs")
+}
+
+main().catch(console.error);
