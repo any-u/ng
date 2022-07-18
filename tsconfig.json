@@ -8,8 +8,14 @@
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["./src"],
-  "exclude": ["node_modules", "**/*.spec.js", "packages"]
+  "exclude": ["node_modules", "**/*.spec.js", "packages"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }
