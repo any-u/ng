@@ -1,11 +1,11 @@
 import fs from "fs-extra"
 import { basename, extname } from "path"
 import picocolors from "picocolors"
-import { LocalConfig, Option } from "src/config"
-import { pickOptions } from "src/options"
-import { cull, getFiles, isFile } from "src/shared"
-import { writeTemplate } from "src/template"
-import { AnyObject } from "src/shared"
+import { LocalConfig, Option } from "../config"
+import { pickOptions } from "../options"
+import { cull, getFiles, isFile } from "../shared"
+import { writeTemplate } from "../template"
+import { AnyObject } from "../shared"
 
 export default async function downloadLocal(
   name: string,

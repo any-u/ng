@@ -9,6 +9,7 @@ export default defineBuildConfig({
   declaration: true,
   rollup: {
     emitCJS: true,
+    cjsBridge: true,
     inlineDependencies: true,
   },
 })

@@ -1,10 +1,10 @@
-import { Option, RemoteConfig } from "src/config"
+import { Option, RemoteConfig } from "../config"
 import picocolors from "picocolors"
-import { AnyObject } from "src/shared"
+import { AnyObject } from "../shared"
 import download from "@any-u/git-downloader"
-import { pickOptions } from "src/options"
+import { pickOptions } from "../options"
 import { basename, extname } from "path"
-import { combile } from "src/template"
+import { combile } from "../template"
 
 function isFile(url: string) {
   const pathRE = /[^\/\s]+/g

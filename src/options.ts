@@ -1,4 +1,4 @@
-import { AnyObject } from "src/shared"
+import { AnyObject } from "./shared"
 
 
 export function excludeOptions(options: AnyObject, args: string[]) {

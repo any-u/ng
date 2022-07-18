@@ -1,5 +1,5 @@
-import { Config } from 'src/config'
-import { AnyObject } from 'src/shared'
+import { Config } from '../config'
+import { AnyObject } from '../shared'
 import downloadLocal from './local'
 import downloadRemote from './remote'
 
