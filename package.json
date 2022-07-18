@@ -1,6 +1,6 @@
 {
   "name": "@any-u/ng",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Use the command line to manage boilerplates",
   "keywords": [
     "generator",
