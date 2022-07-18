@@ -43,7 +43,7 @@ export default async function downloadLocal(
 
     const filename = basename(path, ext)
     if (!opts.name) {
-      opts.name = name ? name : filename
+      opts.name = name ? basename(name) : filename
     }
 
     await writeTemplate(path, dest, opts)
