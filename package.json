@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@any-u/git-downloader": "^0.0.6",
+    "cac": "^6.7.12",
     "chalk": "4.1.2",
     "cli-table3": "^0.6.2",
     "console-table-printer": "^2.11.0",
@@ -36,7 +37,8 @@
     "inquirer": "^8.2.4",
     "lodash": "^4.17.21",
     "minimist": "^1.2.6",
-    "picocolors": "^1.0.0"
+    "picocolors": "^1.0.0",
+    "yaml": "^2.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
