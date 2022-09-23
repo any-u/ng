@@ -3,6 +3,6 @@ export interface AnyObject {
 }
 
 
-export function isEmptyObject(object: AnyObject) {
+export function isEmpty(object: Record<string, any>) {
   return Object.keys(object).length === 0
 }

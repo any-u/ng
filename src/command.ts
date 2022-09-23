@@ -1,12 +1,12 @@
 import { Table } from "console-table-printer"
 import _ from "lodash"
 import picocolors from "picocolors"
-import config, { Configuration, Option } from "./config"
-import download from "./download"
+import config, { Config, Configuration, Option } from "./config"
+import generate from "./generate"
 import { useInquirer } from "./inquirer"
-import { excludeOptions } from "./options"
+import { omit } from "./options"
 
-export default function displayCommand(configuration: Configuration) {
+function display(configuration: Configuration) {
   const p = new Table({
     title: "Boilerplate",
     columns: [
@@ -64,7 +64,7 @@ export default function displayCommand(configuration: Configuration) {
   p.printTable()
 }
 
-export function deleteCommand(
+function deleteCommand(
   configuration: Configuration,
   args: string[],
   global = false
@@ -85,28 +85,31 @@ export function deleteCommand(
   config.write(res, global)
 }
 
-export async function inquirerCommand(configuration: Configuration, global = false) {
+async function inquirer(configuration: Configuration, global = false) {
   const res = await useInquirer(configuration)
   config.write(res, global)
 }
 
-export function setCommand(
-  configuration: Configuration,
-  options: string[],
-  global = false
-) {
+function set(configuration: Configuration, options: string[], global = false) {
   if (!options.length) return
   const res = config.generate(options)
   const newConfig = _.merge(configuration, res)
   config.write(newConfig, global)
 }
 
-export async function downloadCommand(
+async function download(
   name: string,
-  alias: string,
-  configuration: Configuration,
-  options: string[]
+  config: Config,
+  options: Record<string, any>
 ) {
-  const args = excludeOptions(options, ["g", "global", "_"])
-  await download(name, configuration[alias], args)
+  const args = omit(options, ["g", "global", "_"])
+  await generate(name, config, args)
+}
+
+export default {
+  display,
+  inquirer,
+  set,
+  generate: download,
+  delete: deleteCommand,
 }

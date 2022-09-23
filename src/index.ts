@@ -1,14 +1,8 @@
 import { cac } from "cac"
 import { performance } from "perf_hooks"
 import picocolors from "picocolors"
-import displayCommand, {
-  deleteCommand,
-  downloadCommand,
-  inquirerCommand,
-  setCommand
-} from "./command"
-import config from "./config"
-import { isEmptyObject } from "./shared"
+import command from "./command"
+import configuration from "./config"
 
 const cli = cac("ng")
 
@@ -19,9 +13,9 @@ cli
   .allowUnknownOptions()
   .action(async (alias, name, options) => {
     const global = options.g || options.global
-    const userConfig = await config.get(global)
+    const config = await configuration.get(global)
 
-    if (isEmptyObject(userConfig) || !userConfig[alias]) {
+    if (!Object.keys(config).length || !config[alias]) {
       console.log(
         picocolors.red(
           `[Ng] Failed to found data for ${picocolors.yellow(
@@ -32,7 +26,7 @@ cli
       return
     }
 
-    await downloadCommand(name, alias, userConfig, options)
+    await command.generate(name, config[alias], options)
 
     console.log(`✨  Done in ${(performance.now() / 1000).toFixed(2)}s.\n`)
   })
@@ -45,16 +39,16 @@ cli
   .option("-i, --interactive", "[boolean] Enable interactive input prompts.")
   .action(async (args, options) => {
     const global = options.g || options.global
-    const userConfig = await config.get(global, true)
+    const userConfig = await configuration.get(global, true)
 
     if (options.l || options.list) {
-      displayCommand(userConfig)
+      command.display(userConfig)
     } else if (options.d || options.delete) {
-      deleteCommand(userConfig, args, !!global)
+      command.delete(userConfig, args, !!global)
     } else if (options.i || options.interactive) {
-      await inquirerCommand(userConfig, !!global)
+      await command.inquirer(userConfig, !!global)
     } else {
-      setCommand(userConfig, args, !!global)
+      command.set(userConfig, args, !!global)
     }
 
     console.log(`✨  Done in ${(performance.now() / 1000).toFixed(2)}s.\n`)
