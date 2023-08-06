@@ -1,5 +1,5 @@
 import { defineBuildConfig } from 'unbuild'
-
+import AutoImport from 'unplugin-auto-import/rollup'
 
 export default defineBuildConfig({
   entries: [
