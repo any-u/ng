@@ -9,11 +9,11 @@
       "request": "launch",
       "name": "TS Launch",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/node_modules/ts-node/dist/bin.js",
-      "args": ["${workspaceFolder}/src/index.ts", "vi", "App", "--a"],
+      "program": "${workspaceFolder}/node_modules/tsx/dist/cli.js",
+      "args": ["${workspaceFolder}/src/index.ts"],
       "cwd": "${workspaceFolder}/playground",
       // use it to debug inquirer
-      // "console": "integratedTerminal"
+      "console": "integratedTerminal"
     }
   ]
 }
