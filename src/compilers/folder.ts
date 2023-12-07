@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import fg from "fast-glob"
 import Handlebars from "handlebars"
 import { join } from 'node:path'
-import { camelize } from "src/utils";
+import { camelize } from "../utils";
 import { CompilerConfig } from "../types";
 
 export default function folderCompiler(config: CompilerConfig) {

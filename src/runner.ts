@@ -1,9 +1,11 @@
 import inquirer, { Answers } from "inquirer";
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import fuzzy from 'fuzzy'
-import { reset } from 'picocolors'
+import picocolors from 'picocolors'
 import { AppConfig } from "./types";
 import getCompiler from "./compilers";
+
+const { reset } = picocolors
 
 inquirer.registerPrompt('autocomplete', inquirerPrompt);
 
