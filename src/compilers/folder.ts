@@ -10,7 +10,7 @@ const IGNORE_FILES = ['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.l
 export default function folderCompiler(config: CompilerConfig) {
   const name = config.camelize ? camelize(config.name) : config.name
 
-  const folderPath = join(process.cwd(), name)
+  const folderPath = join(config.target, name)
   fs.ensureDirSync(folderPath)
 
   const path = `${config.path}/**/*`

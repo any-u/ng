@@ -1,3 +1,4 @@
+import path from 'node:path'
 import inquirer, { Answers } from "inquirer";
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import fuzzy from 'fuzzy'
@@ -59,6 +60,7 @@ export default async function runner(config: AppConfig) {
     name: result.projectName,
     path: appConfig.path,
     camelize: appConfig.camelize || false,
+    target:  appConfig. target ? path.join(process.cwd(), appConfig.target) : process.cwd(),
     options: res
   })
 

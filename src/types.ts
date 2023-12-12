@@ -11,6 +11,7 @@ export interface Option {
 export interface Config {
   path: string
   options: Option[]
+  target?: string
   camelize?: boolean
 }
 
@@ -20,5 +21,6 @@ export interface CompilerConfig {
   path: string
   name: string
   camelize: boolean
+  target: string
   options: Record<string, string | boolean>
 }

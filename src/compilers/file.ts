@@ -18,7 +18,7 @@ export default function fileCompiler(config: CompilerConfig) {
   const extname = path.extname(config.path)
 
   // generate target path
-  const target = path.join(process.cwd(), name + extname)
+  const target = path.join(config.target, name + extname)
   fs.ensureFileSync(target)
   fs.writeFile(target, content)
 }
