@@ -5,6 +5,8 @@ import { join } from 'node:path'
 import { camelize } from "../utils";
 import { CompilerConfig } from "../types";
 
+const IGNORE_FILES = ['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb']
+
 export default function folderCompiler(config: CompilerConfig) {
   const name = config.camelize ? camelize(config.name) : config.name
 
@@ -17,7 +19,7 @@ export default function folderCompiler(config: CompilerConfig) {
 
   files.forEach(file => {
     const raw = fs.readFileSync(file, 'utf-8')
-    const content = Handlebars.compile(raw)({
+    const content = IGNORE_FILES.includes(file) ? raw :  Handlebars.compile(raw)({
       name,
       ...config.options
     })
