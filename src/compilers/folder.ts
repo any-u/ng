@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import fg from "fast-glob"
 import Handlebars from "handlebars"
-import { join } from 'node:path'
+import { join, basename } from 'node:path'
 import { camelize } from "../utils";
 import { CompilerConfig } from "../types";
 
@@ -19,7 +19,7 @@ export default function folderCompiler(config: CompilerConfig) {
 
   files.forEach(file => {
     const raw = fs.readFileSync(file, 'utf-8')
-    const content = IGNORE_FILES.includes(file) ? raw :  Handlebars.compile(raw)({
+    const content = IGNORE_FILES.includes(basename(file)) ? raw :  Handlebars.compile(raw)({
       name,
       ...config.options
     })
